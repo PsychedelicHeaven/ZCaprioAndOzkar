@@ -43,6 +43,8 @@ public class UIManager : MonoBehaviour
     public Slider Luxury_min_level;
     public Slider Motivation_level;
     public Slider Motivation_min_level;
+
+    public Slider Depression_level;
     //
 
     //Activities
@@ -239,6 +241,8 @@ public class UIManager : MonoBehaviour
         Satisfaction_min_level.value = Actor.Instance.minSatisfaction / 100;
         Motivation_min_level.value = Actor.Instance.minMotivation / 100;
         Luxury_min_level.value = Actor.Instance.minLuxury / 100;
+
+        Depression_level.value = Actor.Instance.depression / 100;
     }
 
 
@@ -316,10 +320,10 @@ public class UIManager : MonoBehaviour
     {
         if (contract_is_chosen)
         {
+            ImageManager.Instance.setBackground();
             contract_platform.SetActive(false);
             TimeScript.Instance.StartScene(Actor.Instance.SceneDifficulty(Chosen_contract.scene[0], Chosen_contract));
-
-
+            
             contract_description.text = " ";
             contract_cost.text = "0";
             contract_time.text = " ";

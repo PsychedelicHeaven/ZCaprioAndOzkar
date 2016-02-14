@@ -205,6 +205,7 @@ public class TimeScript : MonoBehaviour {
             score_text.text = "Rating: " + Actor.Instance.EvaluateContract(UIManager.Instance.Chosen_contract);
             SceneActing.SetActive(false);
             CompleteScreen.SetActive(true);
+            ImageManager.Instance.setDefaultBackground();
 
         }
         
