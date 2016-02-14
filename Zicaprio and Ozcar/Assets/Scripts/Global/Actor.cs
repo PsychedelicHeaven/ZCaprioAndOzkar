@@ -216,7 +216,7 @@ public class Actor : MonoBehaviour
     /// Add a new skill
     /// </summary>
     /// <param name="_skill"></param>
-    public bool AddSkill(GameManager.skill _skill)
+    public bool AddSkill(GameManager.skill _skill, int cost)
     {
         bool found = false;
         foreach(SkillData sd in currentSkills)
@@ -266,17 +266,17 @@ public class Actor : MonoBehaviour
     /// Returns a List of availible skills the player hasnt purchased yet
     /// </summary>
     /// <returns></returns>
-    public List<GameManager.skill> NewSkills()
+    public List<SkillCostData> NewSkills()
     {
-        List<GameManager.skill> _new = new List<GameManager.skill>();
+        List<SkillCostData> _new = new List<SkillCostData>();
         for (int i = 0; i < level; i++)
         {
-            foreach(GameManager.skill s in skillByLevel[i].skillGrp)
+            foreach(SkillCostData s in skillByLevel[i].skillGrp)
             {
                 bool found = false;
                 foreach(SkillData sd in currentSkills)
                 {
-                    if(sd.skillType == s)
+                    if(sd.skillType == s.skillType)
                     {
                         found = true;
                     }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class SkillButton : MonoBehaviour {
 
     public SkillData skill_to_do;
+    public int cost;
 
     public Text button_text;
 
@@ -21,7 +22,7 @@ public class SkillButton : MonoBehaviour {
 
     public void ActivateSkill()
     {
-        Actor.Instance.AddSkill(skill_to_do.skillType);
+        Actor.Instance.AddSkill(skill_to_do.skillType, cost);
     }
 
     public void ShowDescription()
@@ -38,5 +39,6 @@ public class SkillButton : MonoBehaviour {
     {
         UIManager.Instance.Chosen_skill = skill_to_do;
         UIManager.Instance.skill_is_chosen = true;
+        UIManager.Instance.cost = cost;
     }
 }

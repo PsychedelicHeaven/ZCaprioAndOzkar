@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
 
 
     public SkillData Chosen_skill;
+    public int cost;
     public bool skill_is_chosen = false;
     //
 
@@ -151,10 +152,10 @@ public class UIManager : MonoBehaviour
             AddActiveSkillButton(Skills_active_ParentPanel, Actor.Instance.currentSkills[i]);
         }
 
-        List<GameManager.skill> temp = Actor.Instance.NewSkills();
+        List<SkillCostData> temp = Actor.Instance.NewSkills();
         for (int i = 0; i < temp.Count; i++)
         {
-            AddNewSkillButton(Skills_new_ParentPanel, temp[i]);
+            AddNewSkillButton(Skills_new_ParentPanel, temp[i].skillType, temp[i].SPCost);
         }
     }
 
@@ -168,10 +169,11 @@ public class UIManager : MonoBehaviour
         //new_skill.GetComponentInChildren<Text>().text = skill.skillType.ToString();
         new_skill.GetComponent<SkillButton>().button_text.text = skill.skillType.ToString();
         new_skill.GetComponent<SkillButton>().skill_to_do = skill;
+        
         current_active_Skills.Add(new_skill);
     }
 
-    void AddNewSkillButton(RectTransform ParentPanel, GameManager.skill skill)
+    void AddNewSkillButton(RectTransform ParentPanel, GameManager.skill skill, int _cost)
     {
         GameObject new_skill = (GameObject)Instantiate(New_Skill_button_prefab);
         new_skill.transform.SetParent(ParentPanel, false);
@@ -179,6 +181,7 @@ public class UIManager : MonoBehaviour
         //new_skill.GetComponentInChildren<Text>().text = skill.ToString();
         new_skill.GetComponent<SkillButton>().button_text.text = skill.ToString();
         new_skill.GetComponent<SkillButton>().skill_to_do = new SkillData(skill, 1, 1);
+        new_skill.GetComponent<SkillButton>().cost = _cost;
         current_new_Skills.Add(new_skill);
     }
 
@@ -186,7 +189,7 @@ public class UIManager : MonoBehaviour
     {
         if (skill_is_chosen)
         {
-            Actor.Instance.AddSkill(Chosen_skill.skillType);
+            Actor.Instance.AddSkill(Chosen_skill.skillType, cost);
             PopulateSkills();
 
             Skill_level.text = "Level " + Chosen_skill.skillLevel;
