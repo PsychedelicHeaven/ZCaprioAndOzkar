@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     public Text Skill_level;
     public Slider Skill_progression;
 
+    public Text Skill_points;
 
     public SkillData Chosen_skill;
     public int cost;
@@ -192,6 +193,8 @@ public class UIManager : MonoBehaviour
             Actor.Instance.AddSkill(Chosen_skill.skillType, cost);
             PopulateSkills();
 
+            Skill_points.text = "Skill points: " + Actor.Instance.SP;
+
             Skill_level.text = "Level " + Chosen_skill.skillLevel;
             Skill_progression.value = Chosen_skill.proficiency / Chosen_skill.ProficiencyReq();
             skill_is_chosen = false;
@@ -293,6 +296,19 @@ public class UIManager : MonoBehaviour
             contract_is_chosen = false;
         }
     }
+
+
+    public void SendSkillDescriptionMessage()
+    {
+        Skills_description.text = "You dont have enough skill points.";
+    }
+
+    public void UpdateSP()
+    {
+        Skill_points.text = "Skill points: " + Actor.Instance.SP;
+    }
+    
+    
 
 
 }
