@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Acting\RadialScript.cs" />
     <Compile Include="Assets\Scripts\Acting\RadialSet.cs" />
     <Compile Include="Assets\Scripts\Acting\RotateScript.cs" />
+    <Compile Include="Assets\Scripts\Acting\TimeScript.cs" />
     <Compile Include="Assets\Scripts\Data\LifestyleData.cs" />
     <Compile Include="Assets\Scripts\Data\SkillData.cs" />
     <Compile Include="Assets\Scripts\Data\SkillGroup.cs" />
