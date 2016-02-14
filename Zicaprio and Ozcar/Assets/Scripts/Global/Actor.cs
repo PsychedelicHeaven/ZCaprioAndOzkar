@@ -29,6 +29,10 @@ public class Actor : MonoBehaviour
     public List<SkillData> currentSkills = new List<SkillData>();
     /// <summary> List of completed contracts </summary>
     public List<ContractData> completedContracts = new List<ContractData>();
+    /// <summary> A movie nominated for oscar </summary>
+    public ContractData oscarMovie = null;
+    /// <summary> Did we win the oscar this year? </summary>
+    public bool oscarQueued = false;
 
     /// <summary> Motivation </summary>
     public float minMotivation;
@@ -226,6 +230,11 @@ public class Actor : MonoBehaviour
         GameManager.Instance.contractByYear[GameManager.Instance.currentYear - GameManager.Instance.GetFirstYear()].contractGrp.Remove(_contract);
         UIManager.Instance.PopulateContracts();
         tempBonus = 0;
+        if (_contract.oscarWorthy && rating > 9)
+        {
+            oscarQueued = true;
+            oscarMovie = _contract;
+        }
         return rating;
     }
 
@@ -422,6 +431,10 @@ public class Actor : MonoBehaviour
         minMotivation = 10 * level;
         minSatisfaction = 10 * level;
         AddCash(-expenditure, " Expenses");
+        if(oscarQueued)
+        {
+            WinOscar();
+        }
         UIManager.Instance.PopulateContracts();
     }
 
@@ -455,4 +468,8 @@ public class Actor : MonoBehaviour
         UIManager.Instance.UpdateSP();
     }
 
+    public void WinOscar()
+    {
+
+    }
 }
