@@ -68,9 +68,18 @@ public class UIManager : MonoBehaviour
 
     public RectTransform contract_ParentPanel;
 
+    public Text contract_type;
+    public Text contract_genre;
     public Text contract_description;
     public Text contract_cost;
     public Text contract_time;
+
+    public Text contract_skill1;
+    public Text contract_skill2;
+    public Text contract_skill3;
+    public Text contract_skill4;
+    public Text contract_skill5;
+
 
 
     public ContractData Chosen_contract;
@@ -278,7 +287,7 @@ public class UIManager : MonoBehaviour
         new_contract.transform.SetParent(ParentPanel, false);
         new_contract.transform.localScale = new Vector3(1, 1, 1);
         //new_contract.GetComponentInChildren<Text>().text = _contract.contractType.ToString();
-        new_contract.GetComponent<ContractButton>().button_text.text = _contract.contractType.ToString();
+        new_contract.GetComponent<ContractButton>().button_text.text = _contract.contractName;
         new_contract.GetComponent<ContractButton>().contract = _contract;
         contracts.Add(new_contract);
     }
