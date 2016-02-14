@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     private static UIManager instance = null;
     public static UIManager Instance { get { return instance; } }
 
-
+    public AudioClip button_sound;
 
     //skills
 
