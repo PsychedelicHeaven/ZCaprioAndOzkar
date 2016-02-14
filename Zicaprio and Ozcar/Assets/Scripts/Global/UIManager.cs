@@ -8,10 +8,10 @@ public class UIManager : MonoBehaviour
 
     private static UIManager instance = null;
     public static UIManager Instance { get { return instance; } }
-
-    public AudioClip button_sound;
+   
 
     //skills
+    public GameObject Skill_platform;
 
     public GameObject Skill_button_prefab;
     public GameObject New_Skill_button_prefab;
@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
     //
 
     //Activities
+    public GameObject activity_platform;
     public GameObject activity_button_prefab;
 
     public RectTransform activity_ParentPanel;
@@ -62,11 +63,13 @@ public class UIManager : MonoBehaviour
     //Money
 
     public Text money_text;
-    
+
 
     //
 
     // Contract
+    public GameObject contract_platform;
+
     public GameObject contract_button_prefab;
 
     public RectTransform contract_ParentPanel;
@@ -313,6 +316,7 @@ public class UIManager : MonoBehaviour
     {
         if (contract_is_chosen)
         {
+            contract_platform.SetActive(false);
             TimeScript.Instance.StartScene(Actor.Instance.SceneDifficulty(Chosen_contract.scene[0], Chosen_contract));
 
 
