@@ -155,6 +155,7 @@ public class Actor : MonoBehaviour
     public float EvaluateContract(ContractData _contract)
     {
         float rating = 0;
+        rating += _contract.baseRating;
         int baseRating = 0;
         foreach (SkillReq s in _contract.skill)
         {
@@ -186,6 +187,7 @@ public class Actor : MonoBehaviour
         _contract.completed = true;
         completedContracts.Add(_contract);
         GameManager.Instance.contractByYear[GameManager.Instance.currentYear - GameManager.Instance.GetFirstYear()].contractGrp.Remove(_contract);
+        UIManager.Instance.PopulateContracts();
         return rating;
     }
 
@@ -232,6 +234,7 @@ public class Actor : MonoBehaviour
             sd.skillLevel = 1;
             currentSkills.Add(sd);
         }
+        UIManager.Instance.PopulateSkills();
         return !found;
     }
 
@@ -246,7 +249,17 @@ public class Actor : MonoBehaviour
         {
             XP -= baseXPReq * level * (level + 1) * 0.5f;
             level++;
+            UIManager.Instance.PopulateSkills();
         }
+    }
+
+    /// <summary>
+    /// Max XP required for this level
+    /// </summary>
+    /// <returns></returns>
+    public float maxXP()
+    {
+        return baseXPReq * level * (level + 1) * 0.5f;
     }
 
     /// <summary>
@@ -372,6 +385,7 @@ public class Actor : MonoBehaviour
         minLuxury = 10 * level;
         minMotivation = 10 * level;
         minSatisfaction = 10 * level;
+        UIManager.Instance.PopulateContracts();
     }
 
     /// <summary>
