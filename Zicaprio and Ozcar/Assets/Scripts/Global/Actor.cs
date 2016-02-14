@@ -64,6 +64,8 @@ public class Actor : MonoBehaviour
     public int depressionModifier = 1;
     // <summary> Depression Time Modifier </summary>
     public int depressionTimeModifier = 1;
+    // <summary> Expenditure modifier </summary>
+    public int expenditureModifier = 1000;
 
     /// PRIVATE PROPERTIES
 
@@ -154,17 +156,32 @@ public class Actor : MonoBehaviour
     /// <returns></returns>
     public bool ContractPossibility(ContractData _contract)
     {
+        int count = 0;
         foreach (SkillReq s in _contract.skill)
         {
             foreach (SkillData sk in currentSkills)
             {
-                if (s.skillType == sk.skillType && sk.skillLevel < s.minReq)
+                if (s.skillType == sk.skillType)
                 {
-                    return false;
+                    if(sk.skillLevel < s.minReq)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        count++;
+                    }
                 }
             }
         }
-        return true;
+        if(count < _contract.skill.Count)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     /// <summary>
@@ -267,6 +284,7 @@ public class Actor : MonoBehaviour
         {
             XP -= baseXPReq * level * (level + 1) * 0.5f;
             level++;
+            expenditure = expenditureModifier * level * (level + 1) * 0.5f;
             UIManager.Instance.PopulateSkills();
         }
     }
@@ -403,6 +421,7 @@ public class Actor : MonoBehaviour
         minLuxury = 10 * level;
         minMotivation = 10 * level;
         minSatisfaction = 10 * level;
+        AddCash(-expenditure, " Expenses");
         UIManager.Instance.PopulateContracts();
     }
 
@@ -427,6 +446,7 @@ public class Actor : MonoBehaviour
         {
             GameManager.Instance.GameOver();
         }
+        UIManager.Instance.AddMessage(_cash + " " + reason);
     }
 
     public void AddSP(int amount)
