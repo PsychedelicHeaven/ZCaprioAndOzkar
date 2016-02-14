@@ -208,6 +208,7 @@ public class Actor : MonoBehaviour
         completedContracts.Add(_contract);
         GameManager.Instance.contractByYear[GameManager.Instance.currentYear - GameManager.Instance.GetFirstYear()].contractGrp.Remove(_contract);
         UIManager.Instance.PopulateContracts();
+        tempBonus = 0;
         return rating;
     }
 
