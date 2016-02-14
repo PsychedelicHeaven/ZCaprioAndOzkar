@@ -69,17 +69,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="Assets\Scripts\Data\ContractData.cs" />
-    <Compile Include="Assets\Scripts\Data\GenreData.cs" />
-    <Compile Include="Assets\Scripts\Data\SceneData.cs" />
-=======
     <Compile Include="Assets\Scripts\Acting\RadialScript.cs" />
     <Compile Include="Assets\Scripts\Acting\RadialSet.cs" />
     <Compile Include="Assets\Scripts\Acting\RotateScript.cs" />
     <Compile Include="Assets\Scripts\Acting\TimeScript.cs" />
-    <Compile Include="Assets\Scripts\Data\LifestyleData.cs" />
->>>>>>> 54490dba14ea5c03ca68e2f43d21aada868e4f26
+    <Compile Include="Assets\Scripts\Data\ContractData.cs" />
+    <Compile Include="Assets\Scripts\Data\GenreData.cs" />
+    <Compile Include="Assets\Scripts\Data\SceneData.cs" />
     <Compile Include="Assets\Scripts\Data\SkillData.cs" />
     <Compile Include="Assets\Scripts\Data\SkillGroup.cs" />
     <Compile Include="Assets\Scripts\Data\SkillReq.cs" />
