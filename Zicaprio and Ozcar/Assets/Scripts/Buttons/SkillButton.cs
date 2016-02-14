@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SkillButton : MonoBehaviour {
 
     public SkillData skill_to_do;
+
+    public Text button_text;
 
     // Use this for initialization
     void Start () {

@@ -148,7 +148,8 @@ public class UIManager : MonoBehaviour
         GameObject new_skill = (GameObject)Instantiate(Skill_button_prefab);
         new_skill.transform.SetParent(ParentPanel, false);
         new_skill.transform.localScale = new Vector3(1, 1, 1);
-        new_skill.GetComponentInChildren<Text>().text = skill.skillType.ToString();
+        //new_skill.GetComponentInChildren<Text>().text = skill.skillType.ToString();
+        new_skill.GetComponent<SkillButton>().button_text.text = skill.skillType.ToString();
         new_skill.GetComponent<SkillButton>().skill_to_do = skill;
         current_active_Skills.Add(new_skill);
     }
@@ -158,7 +159,8 @@ public class UIManager : MonoBehaviour
         GameObject new_skill = (GameObject)Instantiate(New_Skill_button_prefab);
         new_skill.transform.SetParent(ParentPanel, false);
         new_skill.transform.localScale = new Vector3(1, 1, 1);
-        new_skill.GetComponentInChildren<Text>().text = skill.ToString();
+        //new_skill.GetComponentInChildren<Text>().text = skill.ToString();
+        new_skill.GetComponent<SkillButton>().button_text.text = skill.ToString();
         new_skill.GetComponent<SkillButton>().skill_to_do = new SkillData(skill, 1, 1);
         current_new_Skills.Add(new_skill);
     }
@@ -201,7 +203,8 @@ public class UIManager : MonoBehaviour
         GameObject new_activity = (GameObject)Instantiate(activity_button_prefab);
         new_activity.transform.SetParent(ParentPanel, false);
         new_activity.transform.localScale = new Vector3(1, 1, 1);
-        new_activity.GetComponentInChildren<Text>().text = _activity.activityType.ToString();
+        //new_activity.GetComponentInChildren<Text>().text = _activity.activityType.ToString();
+        new_activity.GetComponent<ActivityButton>().button_text.text = _activity.activityType.ToString();
         new_activity.GetComponent<ActivityButton>().activity = _activity;
     }
 
@@ -246,7 +249,8 @@ public class UIManager : MonoBehaviour
         GameObject new_contract = (GameObject)Instantiate(contract_button_prefab);
         new_contract.transform.SetParent(ParentPanel, false);
         new_contract.transform.localScale = new Vector3(1, 1, 1);
-        new_contract.GetComponentInChildren<Text>().text = _contract.contractType.ToString();
+        //new_contract.GetComponentInChildren<Text>().text = _contract.contractType.ToString();
+        new_contract.GetComponent<ContractButton>().button_text.text = _contract.contractType.ToString();
         new_contract.GetComponent<ContractButton>().contract = _contract;
         contracts.Add(new_contract);
     }
