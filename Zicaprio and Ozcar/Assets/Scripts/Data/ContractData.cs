@@ -11,9 +11,13 @@ public class ContractData
     public string description;
     public float baseRating = 1;
     public float baseXP = 50;
+    public float baseCash = 100000;
+    public int baseSP = 1;
     public List<GenreData> genre = new List<GenreData>();
     public List<SkillReq> skill = new List<SkillReq>();
     public List<SceneData> scene = new List<SceneData>();
+    [HideInInspector]
     public float ratingAchieved;
+    [HideInInspector]
     public bool completed;
 }

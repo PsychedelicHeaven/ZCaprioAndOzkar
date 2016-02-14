@@ -40,16 +40,22 @@ public class Actor : MonoBehaviour
     public float minSatisfaction;
     public float currentSatisfaction;
 
-    /// <summary> modifier for non dominant genres </summary>
-    public float secondaryGenreWeight = 0.3f ;
-    /// <summary> modifier skill bonus </summary>
-    public float skillBonusWeight = 0.3f ;
-    /// <summary> Effect of skill bonuses on movie rating</summary>
-    public float skillRatingMultiplier = 0.5f;
     /// <summary> Proficiency required to advance from level 1 to 2 of any skill </summary>
     public float baseProficiencyReq = 100;
     /// <summary> XP required to advance actor from level 1 to 2 </summary>
     public float baseXPReq = 100;
+    /// <summary> modifier for non dominant genres </summary>
+    public float secondaryGenreWeight = 0.3f;
+    /// <summary> modifier skill bonus </summary>
+    public float skillBonusWeight = 0.3f;
+    /// <summary> Effect of skill bonuses on movie rating</summary>
+    public float skillRatingMultiplier = 0.5f;
+    /// <summary> Difficulty of doing a sequel </summary>
+    public float sequelDifficulty = 10;
+    /// <summary> Fans to Ratings multiplier </summary>
+    public int fansMultiplier = 1;
+    // <summary> Bonus fans due to popular trend </summary>
+    public int fanTrendMultiplier = 1;
 
     /// PRIVATE PROPERTIES
 
@@ -112,9 +118,14 @@ public class Actor : MonoBehaviour
             }
         }
         ret -= (int)(skillBonusWeight * diff);
+        ret += (int)(sequelDifficulty * _contract.prequel.Count);
         if(ret <= 1)
         {
             ret = 1;
+        }
+        else if(ret > 100)
+        {
+            ret = 100;
         }
         return ret;
     }
@@ -149,6 +160,17 @@ public class Actor : MonoBehaviour
         }
         rating += skillRatingMultiplier * baseRating;
         rating += tempBonus;
+        cash += ((Mathf.Max(0, rating - 5) / 2.5f) + 1) * _contract.baseCash;
+        XP += ((Mathf.Max(0, rating - 5) / 2.5f) + 1) * _contract.baseXP;
+        SP += ((int)(Mathf.Max(0, rating - 5) / 1.6f) + 1) * _contract.baseSP;
+        fans += ((int)(rating * rating) - 24) * fansMultiplier * ((int)Mathf.Sqrt(level));
+        foreach(GenreData g in _contract.genre)
+        {
+            if(g.genreType == GameManager.Instance.currentTrend)
+            {
+                fans += fanTrendMultiplier;
+            }
+        }
         _contract.ratingAchieved = rating;
         _contract.completed = true;
         return rating;
@@ -240,5 +262,55 @@ public class Actor : MonoBehaviour
             }
         }
         return _new;
+    }
+
+    public void AddMotivation(float amount)
+    {
+        currentMotivation += amount;
+        if (currentMotivation > 100)
+        {
+            currentMotivation = 100;
+        }
+    }
+
+    public void AddLuxury (float amount)
+    {
+        currentLuxury += amount;
+        if (currentLuxury > 100)
+        {
+            currentLuxury = 100;
+        }
+    }
+
+    public void AddSatisfaction(float amount)
+    {
+        currentSatisfaction += amount;
+        if (currentSatisfaction > 100)
+        {
+            currentSatisfaction = 100;
+        }
+    }
+
+    public void PerformActivity(GameManager.Activity _activity)
+    {
+        ActivityData _data = new ActivityData();
+        foreach(ActivityData ad in GameManager.Instance.activityDefs)
+        {
+            if(ad.activityType == _activity)
+            {
+                _data = ad;
+            }
+        }
+        if(_data != null)
+        {
+            foreach (SkillBonus sb in _data._skillBonus)
+            {
+                IncreaseSkill(sb.skillType, sb.proficiencyAdd);
+                AddSatisfaction(_data.satisfactionBonus);
+                AddMotivation(_data.motivationBonus);
+                AddLuxury(_data.luxuryBonus);
+            }
+        }
+
     }
 }

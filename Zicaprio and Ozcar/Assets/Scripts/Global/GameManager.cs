@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
     public Genre currentTrend = Genre.none;
     /// <summary> List of contracts per year </summary>
     public List<ContractGrp> contractByYear = new List<ContractGrp>();
+    /// <summary> Benefits from activities </summary>
+    public List<ActivityData> activityDefs = new List<ActivityData>();
 
     void Awake()
     {
