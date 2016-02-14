@@ -174,6 +174,7 @@ public class TimeScript : MonoBehaviour {
                 year++;
                 year_text.text = year.ToString();
                 UIManager.Instance.PopulateContracts();
+                Actor.Instance.EvaluateYear();
                 break;
             default:
                 date_text.text = "Bug";
@@ -198,7 +199,7 @@ public class TimeScript : MonoBehaviour {
         }
         else
         {
-            scene_counter = 0;
+            scene_counter = -1;
             time_scale = 1;
             description_text.text = UIManager.Instance.Chosen_contract.description;
             score_text.text = "Rating: " + Actor.Instance.EvaluateContract(UIManager.Instance.Chosen_contract);
@@ -206,6 +207,7 @@ public class TimeScript : MonoBehaviour {
             CompleteScreen.SetActive(true);
 
         }
+        
 
     }
 

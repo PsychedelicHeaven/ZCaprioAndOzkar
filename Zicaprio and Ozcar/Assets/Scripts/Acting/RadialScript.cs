@@ -44,6 +44,7 @@ public class RadialScript : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             Actor.Instance.EvaluateScene(GetScore());
+            Debug.Log(TimeScript.Instance.scene_counter);
             transform.parent.gameObject.SetActive(false);
         }
 
