@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zicaprio and Ozcar.CSharp.Plugins", "Zicaprio and Ozcar.CSharp.Plugins.csproj", "{79A3CE77-0FAF-C761-5EB3-E930EA6812E1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zicaprio and Ozcar.CSharp", "Zicaprio and Ozcar.CSharp.csproj", "{89ED0E4A-367B-CB8E-DCD1-9CE9322D0B05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zicaprio and Ozcar.CSharp.Editor", "Zicaprio and Ozcar.CSharp.Editor.csproj", "{62E36BF6-4710-2E0E-7957-3519726C3D2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79A3CE77-0FAF-C761-5EB3-E930EA6812E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79A3CE77-0FAF-C761-5EB3-E930EA6812E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79A3CE77-0FAF-C761-5EB3-E930EA6812E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79A3CE77-0FAF-C761-5EB3-E930EA6812E1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89ED0E4A-367B-CB8E-DCD1-9CE9322D0B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89ED0E4A-367B-CB8E-DCD1-9CE9322D0B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89ED0E4A-367B-CB8E-DCD1-9CE9322D0B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89ED0E4A-367B-CB8E-DCD1-9CE9322D0B05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62E36BF6-4710-2E0E-7957-3519726C3D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62E36BF6-4710-2E0E-7957-3519726C3D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62E36BF6-4710-2E0E-7957-3519726C3D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62E36BF6-4710-2E0E-7957-3519726C3D2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
