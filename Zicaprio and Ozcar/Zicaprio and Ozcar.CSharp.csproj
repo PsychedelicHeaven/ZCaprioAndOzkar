@@ -69,12 +69,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Zicaprio and Ozcar.CSharp.Plugins.csproj">
-      <Project>{79A3CE77-0FAF-C761-5EB3-E930EA6812E1}</Project>
-      <Name>Zicaprio and Ozcar.CSharp.Plugins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Scripts\Acting\RadialScript.cs" />
     <Compile Include="Assets\Scripts\Acting\RadialSet.cs" />
     <Compile Include="Assets\Scripts\Acting\RotateScript.cs" />
@@ -100,7 +94,6 @@
     <Compile Include="Assets\Scripts\Global\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
