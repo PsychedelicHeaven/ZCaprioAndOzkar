@@ -43,7 +43,7 @@ public class RadialScript : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            score += GetScore();
+            Actor.Instance.EvaluateScene(GetScore());
             transform.parent.gameObject.SetActive(false);
         }
 
@@ -76,11 +76,11 @@ public class RadialScript : MonoBehaviour {
         }
         else if(arrow.current_angle > orange.minangle && arrow.current_angle < orange.maxangle)
         {
-            return (0.7f);
+            return (0.0f);
         }
         else
         {
-            return (0.2f);
+            return (-1.0f);
         }
     }
 }

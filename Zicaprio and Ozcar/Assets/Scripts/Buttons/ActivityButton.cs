@@ -24,7 +24,7 @@ public class ActivityButton : MonoBehaviour {
     public void ShowCost()
     {
         UIManager.Instance.activity_cost.text = activity.cost + "$";
-        UIManager.Instance.activity_time.text = activity.timeReq + " month";
+        UIManager.Instance.activity_time.text = activity.timeReq + " months + " + (Actor.Instance.actualTime(activity.timeReq)- activity.timeReq);
     }
 
     public void ChoseActivity()
