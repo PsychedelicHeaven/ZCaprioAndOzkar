@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     public Slider Skill_progression;
 
 
-    public SkillData Chosen_skill = null;
+    public SkillData Chosen_skill;
     public bool skill_is_chosen = false;
     //
 
@@ -38,7 +38,28 @@ public class UIManager : MonoBehaviour
     public Slider Luxury_min_level;
     public Slider Motivation_level;
     public Slider Motivation_min_level;
+    //
 
+    //Activities
+    public GameObject activity_button_prefab;
+
+    public RectTransform activity_ParentPanel;
+
+    public Text activity_description;
+    public Text activity_cost;
+    public Text activity_time;
+
+
+    public ActivityData Chosen_activity;
+    public bool activity_is_chosen = false;
+    //
+
+    //Money
+
+    public Text money_text;
+    public Text expenditure_text;
+
+    //
 
     void Awake()
     {
@@ -59,12 +80,14 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         PopulateSkills();
+        PopulateActivities();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateSliders();
+        UpdateMoney();
     }
 
 
@@ -139,6 +162,42 @@ public class UIManager : MonoBehaviour
         Luxury_min_level.value = Actor.Instance.minLuxury / 100;
     }
 
+
+    public void PopulateActivities()
+    {
+        for (int i = 0; i < GameManager.Instance.activityDefs.Count; i++)
+        {
+            AddNewActivityButton(activity_ParentPanel, GameManager.Instance.activityDefs[i]);
+        }
+    }
+
+    void AddNewActivityButton(RectTransform ParentPanel, ActivityData _activity)
+    {
+        GameObject new_activity = (GameObject)Instantiate(activity_button_prefab);
+        new_activity.transform.SetParent(ParentPanel, false);
+        new_activity.transform.localScale = new Vector3(1, 1, 1);
+        new_activity.GetComponentInChildren<Text>().text = _activity.activityType.ToString();
+        new_activity.GetComponent<ActivityButton>().activity = _activity;
+    }
+
+    public void PerformActivity()
+    {
+        if (activity_is_chosen)
+        {
+            Actor.Instance.PerformActivity(Chosen_activity.activityType);
+
+            activity_description.text = " ";
+            activity_cost.text = "0";
+            activity_time.text = " ";
+
+            activity_is_chosen = false;
+        }
+    }
+
+    public void UpdateMoney()
+    {
+        money_text.text = Actor.Instance.cash.ToString();
+    }
 }
 
 
