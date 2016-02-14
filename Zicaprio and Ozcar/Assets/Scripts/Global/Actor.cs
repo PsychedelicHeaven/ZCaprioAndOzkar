@@ -218,24 +218,21 @@ public class Actor : MonoBehaviour
     /// <param name="_skill"></param>
     public bool AddSkill(GameManager.skill _skill, int cost)
     {
-        bool found = false;
-        foreach(SkillData sd in currentSkills)
+        if(cost > SP)
         {
-            if(sd.skillType == _skill)
-            {
-                found = true;
-            }
+            return false;
         }
-        if(!found)
+        else
         {
             SkillData sd = new SkillData();
             sd.skillType = _skill;
             sd.proficiency = 1;
             sd.skillLevel = 1;
             currentSkills.Add(sd);
-        }
-        UIManager.Instance.PopulateSkills();
-        return !found;
+            UIManager.Instance.PopulateSkills();
+            SP -= cost;
+            return true;
+        }     
     }
 
     /// <summary>
