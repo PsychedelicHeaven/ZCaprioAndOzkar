@@ -53,48 +53,57 @@ public class ImageManager : MonoBehaviour {
 
     public void setBackground()
     {
-        switch(UIManager.Instance.Chosen_contract.genre[0].genreType)
+        if (UIManager.Instance.Chosen_contract.genre.Count > 0)
         {
-            case GameManager.Genre.Action:
-                image.sprite = Action;
-                break;
-            case GameManager.Genre.Drama:
-                image.sprite = Drama;
-                break;
-            case GameManager.Genre.Comedy:
-                image.sprite = Comedy;
-                break;
-            case GameManager.Genre.Romance:
-                image.sprite = Romance;
-                break;
-            case GameManager.Genre.Thriller:
-                image.sprite = Thriller;
-                break;
-            case GameManager.Genre.Fantasy:
-                image.sprite = Fantasy;
-                break;
-            case GameManager.Genre.Horror:
-                image.sprite = Horror;
-                break;
-            case GameManager.Genre.MartialArts:
-                image.sprite = MartialArts;
-                break;
-            case GameManager.Genre.SciFi:
-                image.sprite = SciFi;
-                break;
-            case GameManager.Genre.Crime:
-                image.sprite = Crime;
-                break;
-            case GameManager.Genre.War:
-                image.sprite = War;
-                break;
-            case GameManager.Genre.none:
-                image.sprite = none;
-                break;
-            default:
-                break;
+            switch (UIManager.Instance.Chosen_contract.genre[0].genreType)
+            {
+                case GameManager.Genre.Action:
+                    image.sprite = Action;
+                    break;
+                case GameManager.Genre.Drama:
+                    image.sprite = Drama;
+                    break;
+                case GameManager.Genre.Comedy:
+                    image.sprite = Comedy;
+                    break;
+                case GameManager.Genre.Romance:
+                    image.sprite = Romance;
+                    break;
+                case GameManager.Genre.Thriller:
+                    image.sprite = Thriller;
+                    break;
+                case GameManager.Genre.Fantasy:
+                    image.sprite = Fantasy;
+                    break;
+                case GameManager.Genre.Horror:
+                    image.sprite = Horror;
+                    break;
+                case GameManager.Genre.MartialArts:
+                    image.sprite = MartialArts;
+                    break;
+                case GameManager.Genre.SciFi:
+                    image.sprite = SciFi;
+                    break;
+                case GameManager.Genre.Crime:
+                    image.sprite = Crime;
+                    break;
+                case GameManager.Genre.War:
+                    image.sprite = War;
+                    break;
+                case GameManager.Genre.none:
+                    image.sprite = none;
+                    break;
+                default:
+                    break;
+            }
         }
-        
+        else
+        {
+            image.sprite = default_image;
+        }
+
+
+
     }
 
 
