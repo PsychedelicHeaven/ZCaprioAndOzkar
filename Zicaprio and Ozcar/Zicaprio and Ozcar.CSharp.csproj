@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Data\ContractData.cs" />
     <Compile Include="Assets\Scripts\Data\ContractGrp.cs" />
     <Compile Include="Assets\Scripts\Data\GenreData.cs" />
+    <Compile Include="Assets\Scripts\Data\OscarData.cs" />
     <Compile Include="Assets\Scripts\Data\OtherOscarData.cs" />
     <Compile Include="Assets\Scripts\Data\SceneData.cs" />
     <Compile Include="Assets\Scripts\Data\SkillBonus.cs" />
