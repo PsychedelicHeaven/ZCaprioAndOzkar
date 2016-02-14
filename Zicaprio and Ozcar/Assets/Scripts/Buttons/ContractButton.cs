@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ContractButton : MonoBehaviour {
 
     public ContractData contract;
+    public Text button_text;
 
     public void ShowDescription()
     {
