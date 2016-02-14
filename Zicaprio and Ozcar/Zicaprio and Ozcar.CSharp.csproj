@@ -77,6 +77,10 @@
     <Compile Include="Assets\Scripts\Acting\RadialScript.cs" />
     <Compile Include="Assets\Scripts\Acting\RadialSet.cs" />
     <Compile Include="Assets\Scripts\Acting\RotateScript.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Assets\Scripts\Acting\TimeScript.cs" />
+>>>>>>> b0fefda7286d44bfecac695b1d2f1ab28ba25ef1
     <Compile Include="Assets\Scripts\Data\ContractData.cs" />
     <Compile Include="Assets\Scripts\Data\GenreData.cs" />
     <Compile Include="Assets\Scripts\Data\SceneData.cs" />
