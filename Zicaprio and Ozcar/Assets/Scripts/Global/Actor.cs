@@ -17,8 +17,15 @@ public class Actor : MonoBehaviour
     public float cash = 100;
     /// <summary> Depression meter </summary>
     public float depression = 0;
+    /// <summary> Yearly Expenditure </summary>
+    public float expenditure = 0;
+    /// <summary> Current SP </summary>
+    public int SP = 0;
+    /// <summary> Current XP </summary>
+    public float XP = 0;
     /// <summary> Actors current Skills </summary>
     public List<SkillData> currentSkills = new List<SkillData>();
+
     /// <summary> Motivation </summary>
     public float minMotivation;
     public float currentMotivation;
@@ -31,14 +38,24 @@ public class Actor : MonoBehaviour
     public float minSatisfaction;
     public float currentSatisfaction;
 
-    //VARIABLE PROPERTIES
-
     /// <summary> modifier for non dominant genres </summary>
     public float secondaryGenreWeight = 0.3f ;
     /// <summary> modifier skill bonus </summary>
     public float skillBonusWeight = 0.3f ;
-    /// <summary> Addiction level, dependency on drugs </summary>
-    public int addictionLevel = 0;
+    /// <summary> Effect of skill bonuses on movie rating</summary>
+    public float skillRatingMultiplier = 0.5f;
+    /// <summary> Proficiency required to advance from level 1 to 2 of any skill </summary>
+    public float baseProficiencyReq = 100;
+    /// <summary> XP required to advance actor from level 1 to 2 </summary>
+    public float baseXPReq = 100;
+
+    /// PRIVATE PROPERTIES
+
+    /// <summary> Skill progression by level </summary>
+    [SerializeField]
+    private List<SkillGroup> skillByLevel = new List<SkillGroup>();
+    /// <summary> Temp Rating bonus </summary>
+    private float tempBonus;
 
     void Awake()
     {
@@ -98,5 +115,82 @@ public class Actor : MonoBehaviour
             ret = 1;
         }
         return ret;
+    }
+
+    /// <summary>
+    /// Add accomplishements of each scene to the bonus
+    /// </summary>
+    /// <param name="result"></param>
+    public void EvaluateScene (float result)
+    {
+        tempBonus += result;
+    }
+
+    /// <summary>
+    /// Evaluate the rating for the given contract
+    /// </summary>
+    /// <param name="_contract"></param>
+    /// <returns> Rating </returns>
+    public float EvaluateContract(ContractData _contract)
+    {
+        float rating = 0;
+        int baseRating = 0;
+        foreach (SkillReq s in _contract.skill)
+        {
+            foreach (SkillData sk in currentSkills)
+            {
+                if (s.skillType == sk.skillType && sk.skillLevel > s.minReq)
+                {
+                    baseRating += sk.skillLevel - s.minReq;
+                }
+            }
+        }
+        rating += skillRatingMultiplier * baseRating;
+        rating += tempBonus;
+        return rating;
+    }
+
+    /// <summary>
+    /// Increase a certain skill by a certain amount
+    /// </summary>
+    /// <param name="_skill"></param>
+    /// <param name="amount"></param>
+    public void IncreaseSkill(GameManager.skill _skill, float amount)
+    {
+        foreach(SkillData sd in currentSkills)
+        {
+            if(sd.skillType == _skill)
+            {
+                sd.proficiency += amount;
+                if (sd.proficiency > baseProficiencyReq * sd.skillLevel * (sd.skillLevel + 1) * 0.5f)
+                {
+                    sd.proficiency -= baseProficiencyReq * sd.skillLevel * (sd.skillLevel + 1) * 0.5f;
+                    sd.skillLevel++;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Add a new skill
+    /// </summary>
+    /// <param name="_skill"></param>
+    public void AddSkill(GameManager.skill _skill)
+    {
+        SkillData sd = new SkillData();
+        sd.skillType = _skill;
+        sd.proficiency = 1;
+        sd.skillLevel = 1;
+        currentSkills.Add(sd);
+    }
+
+    public void AddXP(float amount)
+    {
+        XP += amount;
+        if (XP > baseXPReq * level * (level + 1) * 0.5f)
+        {
+            XP -= baseXPReq * level * (level + 1) * 0.5f;
+            level++;
+        }
     }
 }

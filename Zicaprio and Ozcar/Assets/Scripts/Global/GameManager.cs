@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
                         MartialArts,
                         SciFi,
                         Crime,
-                        War}
+                        War,
+                        none}
 
     /// <summary> Types of contracts </summary>
     public enum Contract { Commercial,
@@ -60,7 +61,8 @@ public class GameManager : MonoBehaviour
                            Charity,
                            Property}
 
-    public List<SkillGroup> skillByLevel = new List<SkillGroup>();
+    /// <summary> Current Trend in specific Genre </summary>
+    public Genre currentTrend = Genre.none;
 
     void Awake()
     {
