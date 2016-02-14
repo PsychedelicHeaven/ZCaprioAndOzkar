@@ -58,6 +58,12 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -67,10 +73,7 @@
     <Compile Include="Assets\Scripts\Acting\RadialSet.cs" />
     <Compile Include="Assets\Scripts\Acting\RotateScript.cs" />
     <Compile Include="Assets\Scripts\Acting\TimeScript.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\Scripts\Buttons\SkillButton.cs" />
-=======
->>>>>>> 1449f69636bbd82986d1f7bd463dc8bef05a9d09
     <Compile Include="Assets\Scripts\Data\ContractData.cs" />
     <Compile Include="Assets\Scripts\Data\ContractGrp.cs" />
     <Compile Include="Assets\Scripts\Data\GenreData.cs" />
