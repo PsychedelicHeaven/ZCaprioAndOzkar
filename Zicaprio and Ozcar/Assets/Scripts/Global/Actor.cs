@@ -173,8 +173,8 @@ public class Actor : MonoBehaviour
         float cashToAdd = ((Mathf.Max(0, rating - 5) / 2.5f)) * _contract.baseCash;
         AddCash(cashToAdd, "Rating Bonus");
         AddCash(fanToCash * cashToAdd, "Fan Bonus");
-        XP += ((Mathf.Max(0, rating - 5) / 2.5f) + 1) * _contract.baseXP;
-        SP += ((int)(Mathf.Max(0, rating - 5) / 1.6f) + 1) * _contract.baseSP;
+        AddXP(((Mathf.Max(0, rating - 5) / 2.5f) + 1) * _contract.baseXP);
+        AddSP(((int)(Mathf.Max(0, rating - 5) / 1.6f) + 1) * _contract.baseSP);
         fans += ((int)(rating * rating) - 24) * fansMultiplier * ((int)Mathf.Sqrt(level));
         foreach(GenreData g in _contract.genre)
         {
@@ -230,7 +230,7 @@ public class Actor : MonoBehaviour
             sd.skillLevel = 1;
             currentSkills.Add(sd);
             UIManager.Instance.PopulateSkills();
-            SP -= cost;
+            AddSP(-cost);
             return true;
         }     
     }
@@ -411,6 +411,7 @@ public class Actor : MonoBehaviour
     public void AddSP(int amount)
     {
         SP += amount;
+        UIManager.Instance.UpdateSP();
     }
 
 }
