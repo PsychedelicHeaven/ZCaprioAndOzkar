@@ -11,6 +11,8 @@ public class Actor : MonoBehaviour
 
     /// <summary> Actor level </summary>
     public int level = 1;
+    /// <summary> Max level the player can reach </summary>
+    public int maxLevel = 10;
     /// <summary> Number of Fans </summary>
     public int fans = 0;
     /// <summary> $$$ </summary>
@@ -56,6 +58,8 @@ public class Actor : MonoBehaviour
     public int fansMultiplier = 1;
     // <summary> Bonus fans due to popular trend </summary>
     public int fanTrendMultiplier = 1;
+    // <summary> Depression Modifier </summary>
+    public int depressionModifier = 1;
 
     /// PRIVATE PROPERTIES
 
@@ -291,6 +295,23 @@ public class Actor : MonoBehaviour
         }
     }
 
+    public void AddDepression(float amount)
+    {
+        depression += amount;
+        if (depression > 100)
+        {
+            depression = 100;
+        }
+        else if(depression < 0)
+        {
+            depression = 0;
+        }
+    }
+
+    /// <summary>
+    /// Rewards due to completion of activity
+    /// </summary>
+    /// <param name="_activity"></param>
     public void PerformActivity(GameManager.Activity _activity)
     {
         ActivityData _data = new ActivityData();
@@ -301,16 +322,45 @@ public class Actor : MonoBehaviour
                 _data = ad;
             }
         }
-        if(_data != null)
+        AddSatisfaction(_data.satisfactionBonus);
+        AddMotivation(_data.motivationBonus);
+        AddLuxury(_data.luxuryBonus);
+        AddDepression(-_data.depressionBonus);
+        if (_data != null)
         {
             foreach (SkillBonus sb in _data._skillBonus)
             {
                 IncreaseSkill(sb.skillType, sb.proficiencyAdd);
-                AddSatisfaction(_data.satisfactionBonus);
-                AddMotivation(_data.motivationBonus);
-                AddLuxury(_data.luxuryBonus);
             }
         }
+    }
 
+    /// <summary>
+    /// Evaluate end of year
+    /// </summary>
+    public void EvaluateYear()
+    {
+        float dep = 0;
+        if(currentLuxury < minLuxury)
+        {
+            dep += minLuxury - currentLuxury;
+        }
+        if (currentMotivation < minMotivation)
+        {
+            dep += minMotivation - currentMotivation;
+        }
+        if (currentSatisfaction < minSatisfaction)
+        {
+            dep += minSatisfaction - currentSatisfaction;
+        }
+        dep += depressionModifier * dep;
+        GameManager.Instance.currentYear++;
+        if(GameManager.Instance.yearlyTrend.Count > GameManager.Instance.currentYear - GameManager.Instance.GetFirstYear())
+        {
+            GameManager.Instance.currentTrend = GameManager.Instance.yearlyTrend[GameManager.Instance.currentYear - GameManager.Instance.GetFirstYear()];
+        }
+        minLuxury = 10 * level;
+        minMotivation = 10 * level;
+        minSatisfaction = 10 * level;
     }
 }

@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
     public List<ContractGrp> contractByYear = new List<ContractGrp>();
     /// <summary> Benefits from activities </summary>
     public List<ActivityData> activityDefs = new List<ActivityData>();
+    /// <summary> yearly trends for genres </summary>
+    public List<Genre> yearlyTrend = new List<Genre>();
 
     void Awake()
     {
@@ -92,5 +94,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentYear = firstYear;
+    }
+
+    public int GetFirstYear()
+    {
+        return firstYear;
     }
 }

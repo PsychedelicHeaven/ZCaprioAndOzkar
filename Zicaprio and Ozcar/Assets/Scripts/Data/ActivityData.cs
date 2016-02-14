@@ -10,6 +10,7 @@ public class ActivityData
     public float motivationBonus;
     public float satisfactionBonus;
     public float luxuryBonus;
+    public float depressionBonus;
     public float cost = 100;
     public int timeReq = 1;
     public string description;
