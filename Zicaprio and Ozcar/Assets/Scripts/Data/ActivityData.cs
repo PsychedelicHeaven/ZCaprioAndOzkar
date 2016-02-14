@@ -12,4 +12,5 @@ public class ActivityData
     public float luxuryBonus;
     public float cost = 100;
     public int timeReq = 1;
+    public string description;
 }
