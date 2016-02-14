@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OtherOscarData : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+[System.Serializable]
+public class OtherOscarData
+{
+    public string winnerName;
+    public string movieName;
+    public string description;
 }
