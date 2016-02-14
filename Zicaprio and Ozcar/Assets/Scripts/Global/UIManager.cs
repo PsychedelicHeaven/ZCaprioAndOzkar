@@ -262,7 +262,7 @@ public class UIManager : MonoBehaviour
         if (activity_is_chosen)
         {
             
-            TimeScript.Instance.time_to_end = Chosen_activity.timeReq;
+            TimeScript.Instance.time_to_end = Actor.Instance.actualTime(Chosen_activity.timeReq);
             TimeScript.Instance.activity_is_performing = true;
             activity_description.text = " ";
             activity_cost.text = "0";
@@ -313,9 +313,7 @@ public class UIManager : MonoBehaviour
     {
         if (contract_is_chosen)
         {
-            TimeScript.Instance.StartScene((int)Actor.Instance.EvaluateContract(Chosen_contract));
-
-            
+            TimeScript.Instance.StartScene(Actor.Instance.SceneDifficulty(Chosen_contract.scene[0], Chosen_contract));
 
 
             contract_description.text = " ";

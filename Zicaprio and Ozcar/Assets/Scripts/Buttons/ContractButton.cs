@@ -12,7 +12,7 @@ public class ContractButton : MonoBehaviour {
         
         UIManager.Instance.contract_description.text = contract.description;
         UIManager.Instance.contract_cost.text = contract.baseCash + "$";
-        UIManager.Instance.contract_time.text = contract.contractTime + " month";
+        UIManager.Instance.contract_time.text = contract.contractTime + " months + " + (Actor.Instance.actualTime(contract.contractTime) - contract.contractTime);
         string temp = " ";
         for(int i = 0; i < contract.genre.Count;i++)
         {

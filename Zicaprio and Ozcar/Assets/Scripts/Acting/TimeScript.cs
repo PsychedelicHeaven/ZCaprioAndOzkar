@@ -106,7 +106,7 @@ public class TimeScript : MonoBehaviour {
                 {
                     UIBlocker.SetActive(false);
                     timer = 0;
-                    StartScene(difficulty);
+                    StartScene(Actor.Instance.SceneDifficulty(UIManager.Instance.Chosen_contract.scene[scene_counter], UIManager.Instance.Chosen_contract));
                 }
             }
             else if(activity_is_performing)
@@ -201,7 +201,7 @@ public class TimeScript : MonoBehaviour {
             scene_counter = 0;
             time_scale = 1;
             description_text.text = UIManager.Instance.Chosen_contract.description;
-            score_text.text = Radial.score.ToString();
+            score_text.text = "Rating: " + Actor.Instance.EvaluateContract(UIManager.Instance.Chosen_contract);
             SceneActing.SetActive(false);
             CompleteScreen.SetActive(true);
 
