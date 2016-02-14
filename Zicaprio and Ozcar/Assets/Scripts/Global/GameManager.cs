@@ -100,4 +100,9 @@ public class GameManager : MonoBehaviour
     {
         return firstYear;
     }
+
+    public void GameOver()
+    {
+
+    }
 }

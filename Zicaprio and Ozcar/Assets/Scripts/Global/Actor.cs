@@ -56,10 +56,14 @@ public class Actor : MonoBehaviour
     public float sequelDifficulty = 10;
     /// <summary> Fans to Ratings multiplier </summary>
     public int fansMultiplier = 1;
-    // <summary> Bonus fans due to popular trend </summary>
+    /// <summary> Bonus fans due to popular trend </summary>
     public int fanTrendMultiplier = 1;
-    // <summary> Depression Modifier </summary>
+    /// <summary> Bonus cash due to fans </summary>
+    public int fanToCash = 1;
+    // <summary> Depression Modifier for satisfaction, luxury etc. </summary>
     public int depressionModifier = 1;
+    // <summary> Depression Time Modifier </summary>
+    public int depressionTimeModifier = 1;
 
     /// PRIVATE PROPERTIES
 
@@ -164,7 +168,10 @@ public class Actor : MonoBehaviour
         }
         rating += skillRatingMultiplier * baseRating;
         rating += tempBonus;
-        cash += ((Mathf.Max(0, rating - 5) / 2.5f) + 1) * _contract.baseCash;
+        AddCash(_contract.baseCash, "Payment");
+        float cashToAdd = ((Mathf.Max(0, rating - 5) / 2.5f)) * _contract.baseCash;
+        AddCash(cashToAdd, "Rating Bonus");
+        AddCash(fanToCash * cashToAdd, "Fan Bonus");
         XP += ((Mathf.Max(0, rating - 5) / 2.5f) + 1) * _contract.baseXP;
         SP += ((int)(Mathf.Max(0, rating - 5) / 1.6f) + 1) * _contract.baseSP;
         fans += ((int)(rating * rating) - 24) * fansMultiplier * ((int)Mathf.Sqrt(level));
@@ -177,6 +184,8 @@ public class Actor : MonoBehaviour
         }
         _contract.ratingAchieved = rating;
         _contract.completed = true;
+        completedContracts.Add(_contract);
+        GameManager.Instance.contractByYear[GameManager.Instance.currentYear - GameManager.Instance.GetFirstYear()].contractGrp.Remove(_contract);
         return rating;
     }
 
@@ -326,6 +335,7 @@ public class Actor : MonoBehaviour
         AddMotivation(_data.motivationBonus);
         AddLuxury(_data.luxuryBonus);
         AddDepression(-_data.depressionBonus);
+        AddCash(-_data.cost, _activity.ToString() + " cost");
         if (_data != null)
         {
             foreach (SkillBonus sb in _data._skillBonus)
@@ -363,4 +373,28 @@ public class Actor : MonoBehaviour
         minMotivation = 10 * level;
         minSatisfaction = 10 * level;
     }
+
+    /// <summary>
+    /// Time required for contracts, activities, modified by depression
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public int actualTime(int time)
+    {
+        return (int)((depressionTimeModifier * depression + 1) * time);
+    }
+
+    /// <summary>
+    /// Add cash and call the appropiate ui function
+    /// </summary>
+    /// <param name="_cash"></param>
+    public void AddCash(float _cash, string reason)
+    {
+        cash += _cash;
+        if (cash <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+
 }
