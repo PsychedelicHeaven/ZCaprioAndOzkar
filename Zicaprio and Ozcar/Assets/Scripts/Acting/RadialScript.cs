@@ -27,9 +27,8 @@ public class RadialScript : MonoBehaviour {
 
     public int amount_of_scenes;
 
-    public Text score_text;
-    public GameObject CompleteScreen;
-    public int current_scene;
+    
+
     // Use this for initialization
     void Start () {
         ClearScene();
@@ -45,30 +44,19 @@ public class RadialScript : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             score += GetScore();
-            current_scene++;
-            if(current_scene > amount_of_scenes)
-            {
-                CompleteScreen.SetActive(true);
-                score_text.text = "Score = " + score;
-                ClearScene();
-                transform.parent.gameObject.SetActive(false);
-            }
-            else
-            {
-                SetScene(difficulty);
-            }
+            ClearScene();
+            transform.parent.gameObject.SetActive(false);
         }
 
     }
 
-    void ClearScene() // _difficulty : 0 - 100
+    public void ClearScene() // _difficulty : 0 - 100
     {
-        current_scene = 0;
         score = 0;
         SetScene(difficulty);
     }
 
-        void SetScene(int _difficulty) // _difficulty : 0 - 100
+    public void SetScene(int _difficulty) // _difficulty : 0 - 100
     {
         orange.minangle = Random.Range(min_orange, 180 - 2*min_orange - 100 + difficulty);
         orange.maxangle = orange.minangle + 100 + min_orange - difficulty;
@@ -81,7 +69,7 @@ public class RadialScript : MonoBehaviour {
         length_green = green.maxangle - green.minangle;
     }
 
-    float GetScore() // _difficulty : 0 - 100
+    public float GetScore() // _difficulty : 0 - 100
     {
         if(arrow.current_angle > green.minangle && arrow.current_angle < green.maxangle)
         {

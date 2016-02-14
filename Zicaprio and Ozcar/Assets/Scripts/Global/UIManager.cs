@@ -61,6 +61,24 @@ public class UIManager : MonoBehaviour
 
     //
 
+    // Contract
+    public GameObject contract_button_prefab;
+
+    public RectTransform contract_ParentPanel;
+
+    public Text contract_description;
+    public Text contract_cost;
+    public Text contract_time;
+
+
+    public ContractData Chosen_contract;
+    public bool contract_is_chosen = false;
+
+    public List<GameObject> contracts = new List<GameObject>(); 
+    //
+
+    int start_year = 0;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -79,10 +97,17 @@ public class UIManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        start_year = TimeScript.Instance.year;
+
         PopulateSkills();
         PopulateActivities();
+        PopulateContracts();
+
+        
     }
 
+
+    
     // Update is called once per frame
     void Update()
     {
@@ -184,8 +209,9 @@ public class UIManager : MonoBehaviour
     {
         if (activity_is_chosen)
         {
-            Actor.Instance.PerformActivity(Chosen_activity.activityType);
-
+            
+            TimeScript.Instance.time_to_end = Chosen_activity.timeReq;
+            TimeScript.Instance.activity_is_performing = true;
             activity_description.text = " ";
             activity_cost.text = "0";
             activity_time.text = " ";
@@ -198,6 +224,48 @@ public class UIManager : MonoBehaviour
     {
         money_text.text = Actor.Instance.cash.ToString();
     }
+
+
+    public void PopulateContracts()
+    {
+
+        for (int i = 0; i < contracts.Count; i++)
+        {
+            Destroy(contracts[i]);
+        }
+
+            
+        for (int i = 0; i < GameManager.Instance.contractByYear[TimeScript.Instance.year - start_year].contractGrp.Count; i++)
+        {
+            AddNewContractButton(contract_ParentPanel, GameManager.Instance.contractByYear[TimeScript.Instance.year - start_year].contractGrp[i]);
+        }
+    }
+
+    void AddNewContractButton(RectTransform ParentPanel, ContractData _contract)
+    {
+        GameObject new_contract = (GameObject)Instantiate(contract_button_prefab);
+        new_contract.transform.SetParent(ParentPanel, false);
+        new_contract.transform.localScale = new Vector3(1, 1, 1);
+        new_contract.GetComponentInChildren<Text>().text = _contract.contractType.ToString();
+        new_contract.GetComponent<ContractButton>().contract = _contract;
+        contracts.Add(new_contract);
+    }
+
+    public void PerformContract()
+    {
+        if (contract_is_chosen)
+        {
+            TimeScript.Instance.StartScene((int)Actor.Instance.EvaluateContract(Chosen_contract));
+
+            contract_description.text = " ";
+            contract_cost.text = "0";
+            contract_time.text = " ";
+
+            contract_is_chosen = false;
+        }
+    }
+
+
 }
 
 

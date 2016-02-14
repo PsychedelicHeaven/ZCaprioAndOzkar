@@ -5,11 +5,18 @@ using UnityEngine.UI;
 
 public class TimeScript : MonoBehaviour {
 
+
+    private static TimeScript instance = null;
+    public static TimeScript Instance { get { return instance; } }
+
     public int year = 0;
 
     public float date = 0;
     
     public float year_duration = 60;
+
+    public float time_scale = 1;
+
 
     public Text date_text;
     public Text year_text;
@@ -21,6 +28,49 @@ public class TimeScript : MonoBehaviour {
 
     bool temp = true;
 
+
+
+    //scene
+    public RadialScript Radial;
+    public GameObject UIBlocker;
+    public GameObject SceneActing;
+   
+    public float time_to_next_scene;
+    public int scene_counter;
+    public int difficulty;
+
+    public bool scene_is_performing = false;
+    public float timer;
+
+    public Text description_text;
+    public Text score_text;
+    public GameObject CompleteScreen;
+
+    //
+
+    //activity
+    public GameObject ActivityWindow;
+    public bool activity_is_performing = false;
+    public float timer2;
+    public float time_to_end;
+    //
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
+
+
     // Use this for initialization
     void Start () {
 
@@ -31,6 +81,7 @@ public class TimeScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        
         temp = true;
         for (int i = 0; i < stop_timer_objects.Count; i++)
         {
@@ -43,7 +94,38 @@ public class TimeScript : MonoBehaviour {
 
         if (temp)
         {
-            date = date + Time.deltaTime;
+            date = date + time_scale*Time.deltaTime;
+
+            if (scene_is_performing)
+            {
+                time_scale = 10;
+                timer += time_scale * Time.deltaTime;
+
+                UIBlocker.SetActive(true);
+                if (timer > time_to_next_scene)
+                {
+                    UIBlocker.SetActive(false);
+                    timer = 0;
+                    StartScene(difficulty);
+                }
+            }
+            else if(activity_is_performing)
+            {
+                time_scale = 10;
+                timer2 += time_scale * Time.deltaTime;
+
+                UIBlocker.SetActive(true);
+                if (timer2 > time_to_end)
+                {
+                    Actor.Instance.PerformActivity(UIManager.Instance.Chosen_activity.activityType);
+                    UIBlocker.SetActive(false);
+                    timer2 = 0;
+                    time_scale = 1;
+                    activity_is_performing = false;
+                }
+            }
+
+
         }
 
         GetComponent<Image>().fillAmount = date / year_duration;
@@ -91,6 +173,7 @@ public class TimeScript : MonoBehaviour {
                 date = 0;
                 year++;
                 year_text.text = year.ToString();
+                UIManager.Instance.PopulateContracts();
                 break;
             default:
                 date_text.text = "Bug";
@@ -98,4 +181,34 @@ public class TimeScript : MonoBehaviour {
        } 
 
     }
+
+
+    public void StartScene(int _difficulty)
+    {
+        SceneActing.SetActive(true);
+        difficulty = _difficulty;
+        Radial.SetScene(_difficulty);
+        scene_is_performing = false;
+        scene_counter++;
+
+        if (scene_counter < UIManager.Instance.Chosen_contract.scene.Count)
+        {
+            scene_is_performing = true;
+            time_to_next_scene = UIManager.Instance.Chosen_contract.contractTime / UIManager.Instance.Chosen_contract.scene.Count;
+        }
+        else
+        {
+            scene_counter = 0;
+            time_scale = 1;
+            description_text.text = UIManager.Instance.Chosen_contract.description;
+            score_text.text = Radial.score.ToString();
+            SceneActing.SetActive(false);
+            CompleteScreen.SetActive(true);
+
+        }
+
+    }
+
+
+
 }
