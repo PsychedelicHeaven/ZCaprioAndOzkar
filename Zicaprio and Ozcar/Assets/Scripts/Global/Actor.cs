@@ -148,6 +148,26 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
+    /// Check if it is possible to take the contract
+    /// </summary>
+    /// <param name="_contract"></param>
+    /// <returns></returns>
+    public bool ContractPossibility(ContractData _contract)
+    {
+        foreach (SkillReq s in _contract.skill)
+        {
+            foreach (SkillData sk in currentSkills)
+            {
+                if (s.skillType == sk.skillType && sk.skillLevel < s.minReq)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
     /// Evaluate the rating for the given contract
     /// </summary>
     /// <param name="_contract"></param>
@@ -163,7 +183,7 @@ public class Actor : MonoBehaviour
             {
                 if (s.skillType == sk.skillType && sk.skillLevel > s.minReq)
                 {
-                    baseRating += sk.skillLevel - s.minReq;
+                    baseRating += (int)((sk.skillLevel - s.minReq) * s.weight);
                 }
             }
         }
