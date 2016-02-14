@@ -68,9 +68,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Data\LifestyleData.cs" />
+    <Compile Include="Assets\Scripts\Data\ContractData.cs" />
+    <Compile Include="Assets\Scripts\Data\GenreData.cs" />
+    <Compile Include="Assets\Scripts\Data\SceneData.cs" />
     <Compile Include="Assets\Scripts\Data\SkillData.cs" />
     <Compile Include="Assets\Scripts\Data\SkillGroup.cs" />
+    <Compile Include="Assets\Scripts\Data\SkillReq.cs" />
     <Compile Include="Assets\Scripts\Global\Actor.cs" />
     <Compile Include="Assets\Scripts\Global\GameManager.cs" />
   </ItemGroup>
