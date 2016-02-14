@@ -31,6 +31,9 @@ public class UIManager : MonoBehaviour
     public SkillData Chosen_skill;
     public int cost;
     public bool skill_is_chosen = false;
+
+    public Button choose_skill;
+
     //
 
     //Satisfaction, Luxury, Motivation
@@ -73,6 +76,10 @@ public class UIManager : MonoBehaviour
     public Text contract_description;
     public Text contract_cost;
     public Text contract_time;
+
+    public Text contract_sorry;
+    public float sorry_timer;
+
 
     public Text contract_skill1;
     public Text contract_skill2;
@@ -138,6 +145,16 @@ public class UIManager : MonoBehaviour
             {
                 timer = 0;
                 messages.RemoveAt(0);
+            }
+        }
+
+        if(contract_sorry.enabled)
+        {
+            sorry_timer += Time.deltaTime;
+            if(sorry_timer > 1)
+            {
+                sorry_timer = 0;
+                contract_sorry.enabled = false;
             }
         }
 
@@ -298,11 +315,19 @@ public class UIManager : MonoBehaviour
         {
             TimeScript.Instance.StartScene((int)Actor.Instance.EvaluateContract(Chosen_contract));
 
+            
+
+
             contract_description.text = " ";
             contract_cost.text = "0";
             contract_time.text = " ";
 
             contract_is_chosen = false;
+        }
+        else
+        {
+            UIManager.Instance.contract_sorry.enabled = true;
+            UIManager.Instance.sorry_timer = 0;
         }
     }
 

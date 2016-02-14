@@ -9,6 +9,7 @@ public class ContractButton : MonoBehaviour {
 
     public void ShowDescription()
     {
+        
         UIManager.Instance.contract_description.text = contract.description;
         UIManager.Instance.contract_cost.text = contract.baseCash + "$";
         UIManager.Instance.contract_time.text = contract.contractTime + " month";
@@ -64,8 +65,18 @@ public class ContractButton : MonoBehaviour {
 
     public void ChoseContract()
     {
-        UIManager.Instance.Chosen_contract = contract;
-        UIManager.Instance.contract_is_chosen = true;
+        if (Actor.Instance.ContractPossibility(contract))
+        {
+            UIManager.Instance.Chosen_contract = contract;
+            UIManager.Instance.contract_is_chosen = true;
+            UIManager.Instance.contract_sorry.enabled = false;
+        }
+        else
+        {
+            UIManager.Instance.contract_sorry.enabled = true;
+            UIManager.Instance.sorry_timer = 0;
+        }
     }
+
 
 }

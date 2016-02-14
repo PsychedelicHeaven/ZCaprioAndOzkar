@@ -35,6 +35,16 @@ public class SkillButton : MonoBehaviour {
         UIManager.Instance.Skill_progression.value = skill_to_do.proficiency/skill_to_do.ProficiencyReq();
     }
 
+    public void HideButton()
+    {
+        UIManager.Instance.choose_skill.interactable = false;
+    }
+
+    public void OpenButton()
+    {
+        UIManager.Instance.choose_skill.interactable = true;
+    }
+
     public void ChoseSkill()
     {
         UIManager.Instance.Chosen_skill = skill_to_do;
