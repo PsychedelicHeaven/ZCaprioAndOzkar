@@ -58,8 +58,10 @@ public class Actor : MonoBehaviour
     public int fansMultiplier = 1;
     // <summary> Bonus fans due to popular trend </summary>
     public int fanTrendMultiplier = 1;
-    // <summary> Depression Modifier </summary>
+    // <summary> Depression Modifier for satisfaction, luxury etc. </summary>
     public int depressionModifier = 1;
+    // <summary> Depression Time Modifier </summary>
+    public int depressionTimeModifier = 1;
 
     /// PRIVATE PROPERTIES
 
@@ -362,5 +364,15 @@ public class Actor : MonoBehaviour
         minLuxury = 10 * level;
         minMotivation = 10 * level;
         minSatisfaction = 10 * level;
+    }
+
+    /// <summary>
+    /// Time required for contracts, activities, modified by depression
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public int actualTime(int time)
+    {
+        return (int)((depressionTimeModifier * depression + 1) * time);
     }
 }

@@ -20,4 +20,5 @@ public class ContractData
     public float ratingAchieved;
     [HideInInspector]
     public bool completed;
+    public bool oscarWorthy = false;
 }
