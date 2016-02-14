@@ -61,8 +61,16 @@ public class GameManager : MonoBehaviour
                            Charity,
                            Property}
 
+    /// <summary> The year the game starts </summary>
+    [SerializeField]
+    private int firstYear = 1990;
+    /// <summary> The current year </summary>
+    public int currentYear = 1990;
+    /// <summary> Max years before game is over </summary>
+    public int maxYears = 25;
     /// <summary> Current Trend in specific Genre </summary>
     public Genre currentTrend = Genre.none;
+    public 
 
     void Awake()
     {
@@ -78,4 +86,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        currentYear = firstYear;
+    }
 }
