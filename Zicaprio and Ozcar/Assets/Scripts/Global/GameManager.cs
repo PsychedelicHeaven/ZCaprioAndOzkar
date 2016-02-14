@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour
     public int maxYears = 25;
     /// <summary> Current Trend in specific Genre </summary>
     public Genre currentTrend = Genre.none;
-    public 
+    /// <summary> List of contracts per year </summary>
+    public List<ContractGrp> contractByYear = new List<ContractGrp>();
 
     void Awake()
     {
