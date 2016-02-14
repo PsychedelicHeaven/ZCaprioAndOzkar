@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
                         DialogueDelivery,
                         Improvisation,
                         Confidence,
-                        Movement}
+                        Movement,
+                        FacialExpressions}
 
     /// <summary> Genre </summary>
     public enum Genre { Action,
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
                            Special}
 
     /// <summary> Types of activities our actor can do </summary>
-    public enum Activity { Workout,
+    public enum Activity { BasicWorkout,
                            KungFu,
                            PlasticSurgery,
                            Therapy,
@@ -59,7 +60,22 @@ public class GameManager : MonoBehaviour
                            MusicLessons,
                            Steroids,
                            Charity,
-                           Property}
+                           Property,
+                           HeavyWorkout,
+                           LongVacation,
+                           SportCars,
+                           HardcorePartying,
+                           BuyIsland,
+                           AdvancedActingLessons,
+                           JiJutSu,
+                           PaintingLessons,
+                           HealthyDiet,
+                           Socializing,
+                           AdventureSports,
+                           Travel,
+                           Religion,
+                           TheatreTraining,
+                           MethodActing}
 
     /// <summary> The year the game starts </summary>
     [SerializeField]

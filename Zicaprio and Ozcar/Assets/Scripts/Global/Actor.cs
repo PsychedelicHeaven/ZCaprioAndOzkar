@@ -379,7 +379,7 @@ public class Actor : MonoBehaviour
     /// Rewards due to completion of activity
     /// </summary>
     /// <param name="_activity"></param>
-    public void PerformActivity(GameManager.Activity _activity)
+    public bool PerformActivity(GameManager.Activity _activity)
     {
         ActivityData _data = new ActivityData();
         foreach(ActivityData ad in GameManager.Instance.activityDefs)
@@ -389,18 +389,27 @@ public class Actor : MonoBehaviour
                 _data = ad;
             }
         }
-        AddSatisfaction(_data.satisfactionBonus);
-        AddMotivation(_data.motivationBonus);
-        AddLuxury(_data.luxuryBonus);
-        AddDepression(-_data.depressionBonus);
-        AddCash(-_data.cost, _activity.ToString() + " cost");
-        if (_data != null)
+        if(_data.cost > cash)
         {
-            foreach (SkillBonus sb in _data._skillBonus)
-            {
-                IncreaseSkill(sb.skillType, sb.proficiencyAdd);
-            }
+            return false;
         }
+        else
+        {
+            AddSatisfaction(_data.satisfactionBonus);
+            AddMotivation(_data.motivationBonus);
+            AddLuxury(_data.luxuryBonus);
+            AddDepression(-_data.depressionBonus);
+            AddCash(-_data.cost, _activity.ToString() + " cost");
+            if (_data != null)
+            {
+                foreach (SkillBonus sb in _data._skillBonus)
+                {
+                    IncreaseSkill(sb.skillType, sb.proficiencyAdd);
+                }
+            }
+            return true;
+        }
+        
     }
 
     /// <summary>
