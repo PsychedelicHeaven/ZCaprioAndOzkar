@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class ContractData
 {
     public GameManager.Contract contractType;
+    public string contractName;
     public List<ContractData> prequel = new List<ContractData>();
     public int contractTime = 6;                                          // In months
     public string description;

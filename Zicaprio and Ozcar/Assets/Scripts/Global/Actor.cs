@@ -408,4 +408,9 @@ public class Actor : MonoBehaviour
         }
     }
 
+    public void AddSP(int amount)
+    {
+        SP += amount;
+    }
+
 }
