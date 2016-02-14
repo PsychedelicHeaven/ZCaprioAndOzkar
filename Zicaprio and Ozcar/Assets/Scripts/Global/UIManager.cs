@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
     //Money
 
     public Text money_text;
-    public Text expenditure_text;
+    
 
     //
 
@@ -78,6 +78,10 @@ public class UIManager : MonoBehaviour
     //
 
     int start_year = 0;
+
+    List<string> messages = new List<string>();
+    public Text expenditure_text;
+    public float timer;
 
     void Awake()
     {
@@ -113,6 +117,19 @@ public class UIManager : MonoBehaviour
     {
         UpdateSliders();
         UpdateMoney();
+
+        if (messages.Count > 0)
+        {
+            expenditure_text.text = messages[0];
+            timer += Time.deltaTime;
+            expenditure_text.color = Color.Lerp(Color.white, Color.clear, timer);
+            if (timer == 1)
+            {
+                timer = 0;
+                messages.RemoveAt(0);
+            }
+        }
+
     }
 
 
@@ -228,6 +245,11 @@ public class UIManager : MonoBehaviour
         money_text.text = Actor.Instance.cash.ToString();
     }
 
+
+    public void AddMessage(string message)
+    {
+        messages.Add(message);
+    }
 
     public void PopulateContracts()
     {

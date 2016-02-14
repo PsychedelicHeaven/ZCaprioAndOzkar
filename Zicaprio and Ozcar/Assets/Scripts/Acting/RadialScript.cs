@@ -44,7 +44,6 @@ public class RadialScript : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             score += GetScore();
-            ClearScene();
             transform.parent.gameObject.SetActive(false);
         }
 
