@@ -25,6 +25,8 @@ public class Actor : MonoBehaviour
     public float XP = 0;
     /// <summary> Actors current Skills </summary>
     public List<SkillData> currentSkills = new List<SkillData>();
+    /// <summary> List of completed contracts </summary>
+    public List<ContractData> completedContracts = new List<ContractData>();
 
     /// <summary> Motivation </summary>
     public float minMotivation;
@@ -147,6 +149,8 @@ public class Actor : MonoBehaviour
         }
         rating += skillRatingMultiplier * baseRating;
         rating += tempBonus;
+        _contract.ratingAchieved = rating;
+        _contract.completed = true;
         return rating;
     }
 
@@ -175,15 +179,31 @@ public class Actor : MonoBehaviour
     /// Add a new skill
     /// </summary>
     /// <param name="_skill"></param>
-    public void AddSkill(GameManager.skill _skill)
+    public bool AddSkill(GameManager.skill _skill)
     {
-        SkillData sd = new SkillData();
-        sd.skillType = _skill;
-        sd.proficiency = 1;
-        sd.skillLevel = 1;
-        currentSkills.Add(sd);
+        bool found = false;
+        foreach(SkillData sd in currentSkills)
+        {
+            if(sd.skillType == _skill)
+            {
+                found = true;
+            }
+        }
+        if(!found)
+        {
+            SkillData sd = new SkillData();
+            sd.skillType = _skill;
+            sd.proficiency = 1;
+            sd.skillLevel = 1;
+            currentSkills.Add(sd);
+        }
+        return !found;
     }
 
+    /// <summary>
+    /// Give player some XP
+    /// </summary>
+    /// <param name="amount"></param>
     public void AddXP(float amount)
     {
         XP += amount;
@@ -192,5 +212,33 @@ public class Actor : MonoBehaviour
             XP -= baseXPReq * level * (level + 1) * 0.5f;
             level++;
         }
+    }
+
+    /// <summary>
+    /// Returns a List of availible skills the player hasnt purchased yet
+    /// </summary>
+    /// <returns></returns>
+    public List<GameManager.skill> NewSkills()
+    {
+        List<GameManager.skill> _new = new List<GameManager.skill>();
+        for (int i = 0; i < level; i++)
+        {
+            foreach(GameManager.skill s in skillByLevel[i].skillGrp)
+            {
+                bool found = false;
+                foreach(SkillData sd in currentSkills)
+                {
+                    if(sd.skillType == s)
+                    {
+                        found = true;
+                    }
+                }
+                if(!found)
+                {
+                    _new.Add(s);
+                }
+            }
+        }
+        return _new;
     }
 }
