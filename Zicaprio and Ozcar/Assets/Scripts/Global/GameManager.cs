@@ -35,10 +35,30 @@ public class GameManager : MonoBehaviour
                         Crime,
                         War}
 
-    /// <summary> Lifestyle requirements </summary>
-    public enum lifeStyle { luxury,
-                            leisure,
-                            satisfaction}
+    /// <summary> Types of contracts </summary>
+    public enum Contract { Commercial,
+                           TV,
+                           Movie,
+                           Special}
+
+    /// <summary> Types of activities our actor can do </summary>
+    public enum Activity { Workout,
+                           KungFu,
+                           PlasticSurgery,
+                           Therapy,
+                           Phsychadelics,
+                           ActingClasses,
+                           DanceLessons,
+                           Vacation,
+                           FamilyTime,
+                           Cars,
+                           Sports,
+                           Party,
+                           Hobbies,
+                           MusicLessons,
+                           Steroids,
+                           Charity,
+                           Property}
 
     public List<SkillGroup> skillByLevel = new List<SkillGroup>();
 
@@ -55,4 +75,5 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
     }
+
 }
